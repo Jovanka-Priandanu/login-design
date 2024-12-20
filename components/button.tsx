@@ -1,8 +1,4 @@
-import {
-    TouchableHighlight,
-    Text,
-    StyleSheet,
-} from "react-native"
+import { TouchableHighlight, Text, StyleSheet } from "react-native"
 
 export const ButtonTemplate = (props: any) => {
     return (

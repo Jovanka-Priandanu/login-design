@@ -1,9 +1,4 @@
-import {
-    View,
-    TouchableHighlight,
-    Text,
-    StyleSheet,
-} from "react-native"
+import { View, TouchableHighlight, Text, StyleSheet } from "react-native"
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 
 export const AlternateLogin = (props: any) => {

@@ -156,7 +156,6 @@ const style = StyleSheet.create({
         alignItems: 'center',
     },
     hairline: {
-        borderWidth: 0,
         borderColor: '#B9BCC4',
         width: 153,
         borderTopWidth: 1,

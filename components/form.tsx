@@ -1,10 +1,4 @@
-import {
-    TouchableHighlight,
-    Text,
-    StyleSheet,
-    TextInput,
-    View,
-} from "react-native"
+import { Text, StyleSheet, TextInput, View } from "react-native"
 import React from 'react'
 
 export const FormTemplate = (props: any) => {
@@ -45,15 +39,6 @@ const style = StyleSheet.create({
         borderRadius: 5,
         paddingHorizontal: 12,
         marginBottom: 16,
-    },
-
-    passwordContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
-
-    passwordInput: {
-        flex: 1,
     },
 
 })
