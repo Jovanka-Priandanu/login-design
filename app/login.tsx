@@ -1,14 +1,12 @@
-import { Text, View, StyleSheet, TouchableOpacity, Linking, ScrollView } from "react-native";
+import { Text, View, StyleSheet, TouchableOpacity, Linking, ScrollView, ToastAndroid } from "react-native";
 import { ButtonTemplate, AlternateLogin, FormTemplate } from "@/components";
 import { router, Link } from 'expo-router';
 import { Feather } from '@expo/vector-icons';
+import CApi from "@/lib/CApi";
 import React from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Login() {
-    const routeToLogin = () => {
-        router.push('/')
-    }
-
     const routeApp = () => {
         Linking.openURL('https://youtu.be/dQw4w9WgXcQ?si=1dMyymkSdafSk8kn');
     }
@@ -21,6 +19,37 @@ export default function Login() {
     const setVisibility = () => {
         setIsPasswordVisible(!isPasswordVisible);
     };
+
+    const handleLogin = async () => {
+        if (!email || !password) {
+            ToastAndroid.show('Email and Password can’t be empty', ToastAndroid.SHORT);
+            return;
+        }
+
+        try {
+            const request = {
+                email: email,
+                password: password,
+            };
+
+            const { data } = await CApi.post('/login', request, {
+                headers: { 'Content-Type': 'text/plain' }
+            });
+
+            console.log('Login berhasil:', data);
+            await AsyncStorage.setItem('userToken', data.token);
+            await AsyncStorage.setItem('userEmail', data.data.email);
+            await AsyncStorage.setItem('userName', data.data.name);
+
+            router.push('/dashboard');
+        } catch (err) {
+            console.log('Login gagal:', err);
+            const msg = err?.response?.data?.message || 'Terjadi kesalahan';
+            ToastAndroid.show(msg, ToastAndroid.SHORT);
+        }
+    };
+
+
 
     return (
         <ScrollView style={style.scroll}>
@@ -60,7 +89,7 @@ export default function Login() {
                 <Text style={style.forgot}>Forgot Password ?</Text>
                 <ButtonTemplate
                     title="Submit"
-                    onPress={routeToLogin}
+                    onPress={handleLogin}
                     style={style.button} />
 
                 <View style={style.lineContainer}>
